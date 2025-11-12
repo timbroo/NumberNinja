@@ -1,0 +1,426 @@
+## Window manager definition
+WindowManager:
+    startScreen:
+    levelSelectionScreen:
+    accountScreen:
+    levelScreenVeryEasy:
+    levelScreenES:
+    levelScreenNM:
+    levelScreenHR:
+
+## Default preperties for UI elements
+<RoundedButton@Button>:
+    background_color: ("#00000000")
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (255/255.0, 217/255.0, 61/255.0, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [20]
+    size_hint_x: None
+    size_hint_y: None
+    color: ("#000000ff") 
+    width: 150
+    height: 50
+    on_press:
+        app.play_click_sound()
+
+<Label>:
+    font_size: 32
+    size_hint_x: None   
+    size_hint_y: None   
+    font_name: "CaveatBrush"
+
+<TextInput>:
+    size_hint_x: None
+    size_hint_y: None
+    multiline: False
+    text_color: ("#ffffffff") 
+    width: 180
+    height: 50
+    font_name: "CaveatBrush"
+
+
+<WindowManager>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "images\\bg.jpg" 
+
+## Start screen layout
+<startScreen>:
+    name: "startScreen"
+      
+    FloatLayout:
+        Image:
+            source: "images\\logo.png"
+            pos_hint: {"top":1}
+            size_hint_y: None
+            height: 256
+        Label:
+            id: fact_label
+            text: "" 
+            font_size: 24
+            pos_hint: {"x": 0}
+            size: root.width, root.height
+
+        ## Navigation Buttons
+        RoundedButton:
+            text: 'Start'
+            pos_hint: {"x": 0.40, "y": 0.35}
+            on_release: 
+                app.root.current = "levelSelectionScreen"
+                root.manager.transition.direction = "left"
+        RoundedButton:
+            text: "Account"
+            pos_hint: {'x': 0.4, 'y': 0.25}
+            on_release:
+                app.root.current = "accountScreen"
+                root.manager.transition.direction = "left"
+        RoundedButton:
+            text: "Challange"
+            pos_hint: {'x': 0.4, 'y': 0.15}
+            on_release:
+                app.root.current = "challengeScreen"
+                root.manager.transition.direction = "left"
+        RoundedButton:
+            text: "Exit"
+            pos_hint: {'x': 0.40, 'y': 0.05}
+            on_release: app.stop()
+
+## Level selection screen layout 
+<levelSelectionScreen>:
+    name: "levelSelectionScreen"
+    GridLayout:
+        cols: 1
+        FloatLayout:
+            size: root.width, root.height
+            Label:
+                text: "Select level"
+                pos_hint: {"x": 0.45,"y": 0.8}
+            RoundedButton: ## Addition subtraction
+                pos_hint: {"x": 0.1, "y":0.45}
+                text: "+ and -"
+                on_release:
+                    app.root.current = "levelScreenVE"
+                    root.manager.transition.direction = "right"
+            RoundedButton: ## Addition subtraction w/ parentheses
+                pos_hint: {"x": 0.3, "y":0.45}
+                text: "+ - and ()"
+                on_release:
+                    app.root.current = "levelScreenES"
+                    root.manager.transition.direction = "right"
+            RoundedButton: ## Addition subtraction multiplication
+                pos_hint: {"x": 0.5, "y":0.45}
+                text: "+ - and *"
+                on_release:
+                    app.root.current = "levelScreenNM"
+                    root.manager.transition.direction = "right"     
+            RoundedButton: ## Addition subtraction multiplication division
+                pos_hint: {"x": 0.7, "y":0.45}
+                text: "+ - * /"
+                on_release:
+                    app.root.current = "levelScreenHR"
+                    root.manager.transition.direction = "right"          
+            RoundedButton:
+                pos_hint: {"x": 0.40, "y":0.05}
+                text: "Go back"
+                on_release:
+                    app.root.current = "startScreen"
+                    root.manager.transition.direction = "right"
+## Account screen layout
+<accountScreen>:
+    name: "accountScreen"
+    GridLayout:
+        cols: 1
+        FloatLayout:
+            size: root.width, root.height
+            Label:
+                text: "Account"
+                pos_hint: {"x":0.4, "y":0.8}
+            TextInput:
+                id: ""
+                hint_text: "exapmle@domain.com"
+                pos_hint: {'x': 0.2, 'y': 0.5}
+            TextInput:
+                id: ""
+                password: True
+                hint_text: "Password"
+                pos_hint: {'x': 0.2, 'y': 0.4}
+            RoundedButton:
+                pos_hint: {"x": 0.40, "y":0.25}
+                text: "Sign In"
+                on_press:
+                    pass
+
+            RoundedButton:
+                pos_hint: {"x": 0.40, "y":0.15}
+                text: "Log In"
+                on_press:
+                    pass
+
+            RoundedButton:
+                pos_hint: {"x": 0.40, "y":0.05}
+                text: "Go back"
+                on_release:
+                    app.root.current = "startScreen"
+                    root.manager.transition.direction = "right"
+
+## Challenge screen layout
+<challengeScreen>:
+    name: "challengeScreen"
+    # Points and streak
+    Label:
+        id: pointsAndStreak
+        pos_hint: {"x":0.4, "y":0.8}
+        text: f"Points: {root.points}"
+        font_size: 24
+    Label:
+        id: timer
+        pos_hint: {"x":0.6, "y":0.8}
+        text: f"Time: {root.time_text}"
+        font_size: 24
+
+    # Equation
+    Label:
+        id: equation
+        pos_hint: {"x":0.05, "y": 0.6}
+        text: root.equation_text
+        font_size: 32
+
+    # Buttons row 1
+    RoundedButton:
+        id: a
+        text: root.option_a
+        pos_hint: {"x":0.30, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: c
+        text: root.option_c
+        pos_hint: {"x":0.50, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    # Buttons row 2
+    RoundedButton:
+        id: b
+        text: root.option_b
+        pos_hint: {"x":0.30, "y":0.2}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: d
+        text: root.option_d
+        pos_hint: {"x":0.50, "y":0.2}
+        on_press: root.check_answers(self.text)
+
+    # Go back button centered below
+    RoundedButton:
+        text: "Go Back"
+        pos_hint: {"x":0.4, "y":0.05}
+        size_hint: 0.2, 0.1
+        on_press:
+            app.root.current = "levelSelectionScreen"
+            root.manager.transition.direction = "right"
+
+## Addition/Substaction screen layout
+<levelScreenVE>:
+    name: "levelScreenVE"
+    # Points and streak
+    Label:
+        id: pointsAndStreak
+        pos_hint: {"x":0.4, "y":0.8}
+        text: f"Points: {root.points}"
+        font_size: 24
+
+    # Equation
+    Label:
+        id: equation
+        pos_hint: {"x":0.03, "y": 0.6}
+        text: root.equation_text
+        font_size: 32
+
+    # Buttons row 1
+    RoundedButton:
+        id: a
+        text: root.option_a
+        pos_hint: {"x":0.30, "y":0.3}
+        on_press: 
+            root.check_answers(self.text)
+    RoundedButton:
+        id: c
+        text: root.option_c
+        pos_hint: {"x":0.50, "y":0.3}
+        on_press: 
+            root.check_answers(self.text)
+    # Buttons row 2
+    RoundedButton:
+        id: b
+        text: root.option_b
+        pos_hint: {"x":0.30, "y":0.2}
+        on_press: 
+            root.check_answers(self.text)
+    RoundedButton:
+        id: d
+        text: root.option_d
+        pos_hint: {"x":0.50, "y":0.2}
+        on_press: 
+            root.check_answers(self.text)
+    # Go back button centered below
+    RoundedButton:
+        text: "Go Back"
+        pos_hint: {"x":0.4, "y":0.05}
+        size_hint: 0.2, 0.1
+        on_press:
+            app.root.current = "levelSelectionScreen"
+            root.manager.transition.direction = "right"
+
+## Addition/Substaction + bracets screen layout 
+<levelScreenES>:
+    name: "levelScreenES"
+    # Points and streak
+    Label:
+        id: pointsAndStreak
+        pos_hint: {"x":0.4, "y":0.8}
+        text: f"Points: {root.points}"
+        font_size: 24
+    # Equation
+    Label:
+        id: equation
+        pos_hint: {"x":0.05, "y": 0.6}
+        text: root.equation_text
+        font_size: 32
+
+    # Buttons row 1
+    RoundedButton:
+        id: a
+        text: root.option_a
+        pos_hint: {"x":0.30, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: c
+        text: root.option_c
+        pos_hint: {"x":0.50, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    # Buttons row 2
+    RoundedButton:
+        id: b
+        text: root.option_b
+        pos_hint: {"x":0.30, "y":0.2}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: d
+        text: root.option_d
+        pos_hint: {"x":0.50, "y":0.2}
+        on_press: root.check_answers(self.text)
+    RoundedButton:
+        text: "Go Back"
+        pos_hint: {"x":0.4, "y":0.05}
+        size_hint: 0.2, 0.1
+        on_press:
+            app.root.current = "levelSelectionScreen"
+            root.manager.transition.direction = "right"
+
+## Addition Substaction Multiplication screen layout
+<levelScreenNM>:
+    name: "levelScreenNM"
+        # Points and streak
+    Label:
+        id: pointsAndStreak
+        pos_hint: {"x":0.4, "y":0.8}
+        text: f"Points: {root.points}"
+        font_size: 24
+    # Equation
+    Label:
+        id: equation
+        pos_hint: {"x":0.03, "y": 0.6}
+        text: root.equation_text
+        font_size: 32
+
+    # Buttons row 1
+    RoundedButton:
+        id: a
+        text: root.option_a
+        pos_hint: {"x":0.30, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: c
+        text: root.option_c
+        pos_hint: {"x":0.50, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    # Buttons row 2
+    RoundedButton:
+        id: b
+        text: root.option_b
+        pos_hint: {"x":0.30, "y":0.2}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: d
+        text: root.option_d
+        pos_hint: {"x":0.50, "y":0.2}
+        on_press: root.check_answers(self.text)
+    RoundedButton:
+        text: "Go Back"
+        pos_hint: {"x":0.4, "y":0.05}
+        size_hint: 0.2, 0.1
+        on_press:
+            app.root.current = "levelSelectionScreen"
+            root.manager.transition.direction = "right"
+
+
+## Addition Substaction Multiplication Divition screen layout
+<levelScreenHR>:
+    name: "levelScreenHR"
+    # Points and streak
+    Label:
+        id: pointsAndStreak
+        pos_hint: {"x":0.4, "y":0.8}
+        text: f"Points: {root.points}"
+        font_size: 24
+    # Equation
+    Label:
+        id: equation
+        pos_hint: {"x":0.03, "y": 0.6}
+        text: root.equation_text
+        font_size: 32
+    # Buttons row 1
+    RoundedButton:
+        id: a
+        text: root.option_a
+        pos_hint: {"x":0.30, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: c
+        text: root.option_c
+        pos_hint: {"x":0.50, "y":0.3}
+        on_press: root.check_answers(self.text)
+
+    # Buttons row 2
+    RoundedButton:
+        id: b
+        text: root.option_b
+        pos_hint: {"x":0.30, "y":0.2}
+        on_press: root.check_answers(self.text)
+
+    RoundedButton:
+        id: d
+        text: root.option_d
+        pos_hint: {"x":0.50, "y":0.2}
+        on_press: root.check_answers(self.text)
+    RoundedButton:
+        text: "Go Back"
+        pos_hint: {"x":0.4, "y":0.05}
+        size_hint: 0.2, 0.1
+        on_press:
+            app.root.current = "levelSelectionScreen"
+            root.manager.transition.direction = "right"

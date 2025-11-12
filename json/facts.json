@@ -1,0 +1,36 @@
+{
+  "math_history_facts": [
+    {
+      "id": 1,
+      "fact": "Counting on fingers – Long ago, people used their fingers, toes, or even small stones to count."
+    },
+    {
+      "id": 2,
+      "fact": "Zero was new – The number 0 didn’t exist in early math."
+    },
+    {
+      "id": 3,
+      "fact": "The oldest math problem – A clay tablet from Babylon (over 3,500 years old)."
+    },
+    {
+      "id": 4,
+      "fact": "The word 'mathematics' – It comes from the Greek word 'mathema', which means 'learning'."
+    },
+    {
+      "id": 5,
+      "fact": "The Egyptians loved triangles – They used triangles to build the pyramids with amazing precision."
+    },
+    {
+      "id": 7,
+      "fact": "π (pi) never ends – The number π (3.14159...) goes on forever without repeating."
+    },
+    {
+      "id": 8,
+      "fact": "Math and music are twins."
+    },
+    {
+      "id": 9,
+      "fact": "Math saves lives – From guiding ships across oceans to landing astronauts on the Moon."
+    }
+  ]
+}
