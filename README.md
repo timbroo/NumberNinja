@@ -76,8 +76,9 @@ Immediate correctness checks to support active learning.
 Become part of the **NumberNinja** community!  
 Help improve the app, share ideas, and grow your math mastery like a true ninja! 🥷💪  
 
-📧 *Have feedback or suggestions?* → [Open an issue](https://github.com/yourusername/NumberNinja/issues)  
+📧 *Have feedback or suggestions?* → [Open an issue](https://github.com/timbroo/NumberNinja/issues)  
 
 ---
 
 **© 2025 NumberNinja — Learn math like a ninja! 🥷📐**
+
