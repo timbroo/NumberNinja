@@ -64,7 +64,7 @@ Immediate correctness checks to support active learning.
 ---
 
 ## 🛠️ Tech Stack
-
+- 🐍 **Requrire Kivy library to run**
 - 🐍 **Python + Kivy** — for cross-platform compatibility  
 - ⚙️ **Custom Equation Generator** — unique algorithm for random equation creation  
 - 🎨 **Child-Friendly UI/UX** — designed for engagement and accessibility  
@@ -80,5 +80,7 @@ Help improve the app, share ideas, and grow your math mastery like a true ninja!
 
 ---
 
-**© 2025 NumberNinja — Learn math like a ninja! 🥷📐**
+
+
+
 
